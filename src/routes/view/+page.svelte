@@ -44,6 +44,7 @@
     }
 
     onMount(async () => {
+        console.log(data);
         video_id = data.video_id;
         video_url = "https://www.youtube.com/watch?v="+ video_id;
         embed_url = "https://www.youtube.com/embed/"  + video_id;
