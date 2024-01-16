@@ -1,11 +1,9 @@
 <script>
     import { onMount } from "svelte";
     import Youtube from "svelte-youtube-embed";
-    import { Accordion } from 'stwui';
+    import Accordion from 'stwui/accordion';
 
-    /** @type {{video_id: String}} */
-    export let data;
-    /** @type {String} */
+    /** @type {String|null} */
     let video_id;
     /** @type {String} */
     let video_url;
@@ -44,8 +42,12 @@
     }
 
     onMount(async () => {
-        console.log(data);
-        video_id = data.video_id;
+        // @ts-ignore
+        video_id = new URL(window.location).searchParams.get("videoid");
+        if (video_id===null) {
+            console.error("No video id!");
+            window.location.href = "/error"
+        }
         video_url = "https://www.youtube.com/watch?v="+ video_id;
         embed_url = "https://www.youtube.com/embed/"  + video_id;
         console.log(video_id);
